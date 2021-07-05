@@ -2,12 +2,14 @@ package com.wang.avi.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -15,36 +17,32 @@ import com.wang.avi.AVLoadingIndicatorView;
  * Created by Jack Wang on 2016/8/5.
  */
 
-public class SampleActivity extends AppCompatActivity{
-
-    private RecyclerView mRecycler;
+public class SampleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
 
-        mRecycler= (RecyclerView) findViewById(R.id.recycler);
+        RecyclerView mRecycler = findViewById(R.id.recycler);
 
         GridLayoutManager layoutManager=new GridLayoutManager(this,4);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setAdapter(new RecyclerView.Adapter<IndicatorHolder>() {
+            @NonNull
             @Override
-            public IndicatorHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            public IndicatorHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View itemView=getLayoutInflater().inflate(R.layout.item_indicator,parent,false);
                 return new IndicatorHolder(itemView);
             }
 
             @Override
-            public void onBindViewHolder(IndicatorHolder holder, final int position) {
+            public void onBindViewHolder(@NonNull IndicatorHolder holder, final int position) {
                 holder.indicatorView.setIndicator(INDICATORS[position]);
-                holder.itemLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent=new Intent(SampleActivity.this,IndicatorActivity.class);
-                        intent.putExtra("indicator",INDICATORS[position]);
-                        startActivity(intent);
-                    }
+                holder.itemLayout.setOnClickListener(v -> {
+                    Intent intent=new Intent(SampleActivity.this,IndicatorActivity.class);
+                    intent.putExtra("indicator",INDICATORS[position]);
+                    startActivity(intent);
                 });
             }
 
@@ -63,7 +61,7 @@ public class SampleActivity extends AppCompatActivity{
         public IndicatorHolder(View itemView) {
             super(itemView);
             itemLayout= itemView.findViewById(R.id.itemLayout);
-            indicatorView= (AVLoadingIndicatorView) itemView.findViewById(R.id.indicator);
+            indicatorView= itemView.findViewById(R.id.indicator);
         }
     }
 
