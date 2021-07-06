@@ -24,7 +24,7 @@ You can also find iOS version of this [here](https://github.com/ninjaprox/NVActi
 Add dependencies in build.gradle.
 ```groovy
     dependencies {
-       compile 'com.wang.avi:library:2.1.3'
+       implementation 'com.github.firdausmaulan:AVLoadingIndicatorView:2.3.0'
     }
 ```
 
